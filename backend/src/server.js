@@ -36,14 +36,16 @@ app.use(express.json());
 // Initialize database
 initDatabase().catch(console.error);
 
-// Mount all routes under /api
-app.use("/api", router);
-
+// Create and configure router
 const router = express.Router();
 router.use("/auth", authRoutes);
 router.use("/events", eventRoutes);
 router.use("/", swapRoutes);
 
+// Mount all routes under /api
+app.use("/api", router);
+
+// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "SlotSwapper API is running" });
 });
