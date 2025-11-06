@@ -12,7 +12,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Configure CORS
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Default to Vite's default port
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Initialize database
